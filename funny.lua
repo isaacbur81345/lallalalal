@@ -476,8 +476,8 @@ else
 	})
 
     Tab:AddTextbox({
-		Name = "Delete Custom (index)",
-		Default = "PlayerName",
+		Name = "Delete Custom (path)",
+		Default = "Path",
 		TextDisappear = false,
 		Callback = function(Value)
             local thing = loadstring(Value)()
