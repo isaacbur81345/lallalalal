@@ -480,11 +480,23 @@ else
 		Default = "Path",
 		TextDisappear = false,
 		Callback = function(Value)
-            local thing = loadstring(Value)()
-            if not thing.Parent then
+            local function getPathFromString(path)
+                local currentObject = game -- Start from the root of the hierarchy
+                for segment in string.gmatch(path, "[^%.]+") do
+                    currentObject = currentObject:FindFirstChild(segment)
+                    if not currentObject then
+                        warn("Invalid path segment: " .. segment)
+                        return nil -- Path does not exist
+                    end
+                end
+                return currentObject
+            end
+            
+            local object = getPathFromString(Value)
+            if not object then
                 return
             end
-			Delete(thing)
+			Delete(object)
 		end	  
 	})
 
