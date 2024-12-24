@@ -444,6 +444,50 @@ else
 		end    
 	})
 
+    Tab:AddButton({
+		Name = "Tool for deletion",
+		Callback = function()
+            local Tool = Instance.new("Tool")
+            Tool.Name = "Funny"
+            Tool.TextureId = "http://www.roblox.com/asset/?id=14513373268"
+            Tool.RequiresHandle = false
+            Tool.Parent = game.Players.LocalPlayer.Character
+            
+            local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
+            local function Delete(Instancer)
+                local success, response = pcall(function()
+                    Events:WaitForChild("OnDoorHit"):FireServer(Instancer)
+                end)
+                
+                if success then
+                else
+                    task.wait()
+                    Delete(Instancer)
+                end
+            end
+            
+            Tool.Activated:Connect(function()
+                local m = game.Players.LocalPlayer:GetMouse()
+                if m.Target then
+                    Delete(m.Target)
+                end
+            end)
+		end    
+	})
+
+    Tab:AddTextbox({
+		Name = "Delete Custom (index)",
+		Default = "PlayerName",
+		TextDisappear = false,
+		Callback = function(Value)
+            local thing = loadstring(Value)()
+            if not thing.Parent then
+                return
+            end
+			Delete(thing)
+		end	  
+	})
+
 	local Section = Tab:AddSection({
 		Name = "Humanoid Deletion"
 	})
