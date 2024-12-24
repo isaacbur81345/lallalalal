@@ -481,8 +481,8 @@ else
 		TextDisappear = false,
 		Callback = function(Value)
             local function getPathFromString(path)
-                o = string.gsub(path, "game.", "")
-                pather = string.gsub(o, "workspace", "Workspace")
+                local o = string.gsub(path, "game.", "")
+                local pather = string.gsub(o, "workspace", "Workspace")
                 local currentObject = game -- Start from the root of the hierarchy
                 for segment in string.gmatch(pather, "[^%.]+") do
                     currentObject = currentObject:FindFirstChild(segment)
